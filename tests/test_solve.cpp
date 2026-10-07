@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "solve.h"
+#include <stdexcept>
 
 TEST(SolveTest, NoRealRoots) {
     // Arrange
@@ -36,4 +37,14 @@ TEST(SolveTest, OneRootMultiplicity2) {
     ASSERT_EQ(roots.size(), 2);
     EXPECT_EQ(roots[0], -1);
     EXPECT_EQ(roots[1], -1);
+}
+
+
+TEST(SolveTest, ZeroACoefficientThrows) {
+    // Arrange
+    double a = 0, b = 1, c = 1;  // a = 0, недопустимое значение
+
+
+    // Act + Assert
+    EXPECT_THROW(solve(a, b, c), std::invalid_argument);
 }
