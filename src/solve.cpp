@@ -10,6 +10,11 @@ std::vector<double> solve(double a, double b, double c) {
         double x2 = (-b - std::sqrt(D))/(2 * a);
         return {x1, x2};
     }
+
+    if (D == 0) {
+        double x = -b / (2 * a);
+        return {x, x};
+    }
     
     return {};
 }
