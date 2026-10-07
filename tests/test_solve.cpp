@@ -28,7 +28,7 @@ TEST(SolveTest, TwoRootsMultiplicity1) {
 
 TEST(SolveTest, OneRootMultiplicity2) {
     // Arrange
-    double a = 1, b = 2, c = 1;  // x^2+2x+1 = 0
+    double a = 1, b = 2, c = 1 - 1e-10;  // x^2+2x+1 = 0
 
     // Act
     auto roots = solve(a, b, c);
