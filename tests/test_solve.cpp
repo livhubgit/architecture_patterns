@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include "solve.h"
 #include <stdexcept>
+#include <limits>
 
 TEST(SolveTest, NoRealRoots) {
     // Arrange
@@ -44,7 +45,30 @@ TEST(SolveTest, ZeroACoefficientThrows) {
     // Arrange
     double a = 0, b = 1, c = 1;  // a = 0, недопустимое значение
 
-
     // Act + Assert
     EXPECT_THROW(solve(a, b, c), std::invalid_argument);
+}
+
+
+TEST(SolveTest, ThrowsOnNonNumericCoefficients) {
+    // Arrange
+    std::vector<double> invalidValues = {
+        std::numeric_limits<double>::quiet_NaN(),
+        std::numeric_limits<double>::infinity(),
+        -std::numeric_limits<double>::infinity()
+    };
+    double validCoefficient = 1; 
+
+    
+    // Act + Assert
+    for (double invalid : invalidValues) {
+        double a = invalid, b = validCoefficient, c = validCoefficient;
+        EXPECT_THROW(solve(a, b, c), std::invalid_argument);
+
+        a = validCoefficient; b = invalid; c = validCoefficient;
+        EXPECT_THROW(solve(a, b, c), std::invalid_argument);
+
+        a = validCoefficient; b = validCoefficient; c = invalid;
+        EXPECT_THROW(solve(a, b, c), std::invalid_argument);
+    }
 }

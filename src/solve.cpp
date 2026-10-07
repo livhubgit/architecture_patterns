@@ -5,6 +5,11 @@
 
 std::vector<double> solve(double a, double b, double c) {
     
+
+    if (std::isnan(a) || std::isnan(b) || std::isnan(c) || std::isinf(a) || std::isinf(b) || std::isinf(c)) {
+        throw std::invalid_argument("invalid_argument");
+    }
+
     double epsilon = 1e-9;
     if (std::abs(a) < epsilon) {
         throw std::invalid_argument("invalid_argument a");
