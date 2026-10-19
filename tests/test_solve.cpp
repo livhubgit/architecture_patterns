@@ -72,3 +72,20 @@ TEST(SolveTest, ThrowsOnNonNumericCoefficients) {
         EXPECT_THROW(solve(a, b, c), std::invalid_argument);
     }
 }
+
+
+
+
+// Случай b^2 >> 4ac: два разных корня не должны превращаться в один двойной
+TEST(SolveTest, TwoDistinctRootsWhenBSquaredMuchGreaterThan4ac) {
+    // Arrange
+    double a = 1, b = 1e-5, c = 1e-20;  // корни примерно -1e-15 и -1e-5
+
+    // Act
+    auto roots = solve(a, b, c);
+
+    // Assert
+    ASSERT_EQ(roots.size(), 2);
+    EXPECT_NEAR(roots[0], -1e-15, 1e-18);
+    EXPECT_NEAR(roots[1], -1e-5, 1e-10);
+}
